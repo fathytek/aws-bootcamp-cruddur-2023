@@ -9,7 +9,9 @@ You need :
   - Create you Lucichart account. you will be able to create your digram.
   - Create your Honeycomb.io account
   - Create your RollBar account
- Big thanks for Shala and her smile for all the youtube vide
+  -![image](https://user-images.githubusercontent.com/32872009/219142347-fbe80a9e-2110-4fb3-99f6-b198b382b601.png)
+
+ Big thanks for Shala and her smile for all the youtube video
 
 
 # Week 0 — Billing and Architecture
