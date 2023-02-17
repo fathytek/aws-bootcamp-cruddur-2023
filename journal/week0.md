@@ -15,3 +15,24 @@ You need :
 
 
 # Week 0 — Billing and Architecture
+
+1 - Create Admin User
+
+
+
+
+2 - CloudShell
+
+
+
+3 - AWS Credential
+
+
+4 - Generate AWS Credentials
+
+5 - Installing AWS CLI
+
+6 - Billing Alarm
+
+
+7 - Budgets
