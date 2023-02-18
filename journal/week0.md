@@ -65,11 +65,13 @@ I the tab, I select Security credentials I click on the button Create access key
 
 I connected to the AWS console with the AWS-BOOT-CAMP user and I activate my CloudShell
 
-![image](https://user-images.githubusercontent.com/32872009/219870596-0fe5a51f-272a-46b5-b264-ee0f8905ba0e.png)
+![image](https://user-images.githubusercontent.com/32872009/219871800-1b9dbe4e-27ea-49e6-8032-2e4b569873ef.png)
+
 
 very easy part.
 
 5 - Billing Alarm
+
 in this part I follow the video published by Andrew and I used the aws cli to create my alert
 
 6 - Budgets
