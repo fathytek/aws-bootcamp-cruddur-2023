@@ -94,6 +94,17 @@ i rename this budget as My Monthly Cost Budget 20 Dollars
 ![image](https://user-images.githubusercontent.com/32872009/219864623-ad23d2db-cdea-4eb9-9bed-d395ef1ae66e.png)
 
 
+7- Lucid Diagram
+
+I tried to follow the video and I reproduced the cruddur conceptual Diagram
+here the link : 
+https://lucid.app/lucidchart/cd3eb922-36c2-400c-a81f-0dee949c466d/edit?beaconFlowId=11055289816A723C&invitationId=inv_a1171102-8146-486e-afe4-8db78eff116b&page=0_0#
+
+
+![image](https://user-images.githubusercontent.com/32872009/219875589-d49f25ba-ef2a-45d5-98e9-39f864632d92.png)
+
+
+i Will create the AWS Diagram soon
 
 
 
