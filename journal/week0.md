@@ -37,12 +37,17 @@ First I installed AWS CLI on my laptop ( Windows OS based) by following the guid
 I logged as root in my account and I create as suggested by Andrew 2 alarms. the first one with zero spend budget and the second for 10 dollars monthly cost budget.
 Here below the steps I follow to create the first one. I used AWS console to create this budget. I choose Use a template (simplified) and I select from Templates - new Zero spend budget
 ![image](https://user-images.githubusercontent.com/32872009/219864458-bf32cd74-deb3-4e95-bf81-146e10f8f936.png)
+
 here the result of my creation 
+
 ![image](https://user-images.githubusercontent.com/32872009/219864534-497ae179-04c1-4dbd-80f3-85415633ad53.png)
 
 for the second budget here some screenshoot which describe my progression
+
 ![image](https://user-images.githubusercontent.com/32872009/219864609-e6f382f9-304e-4956-b2ce-de6d7bcf575a.png)
+
 i rename this budget as My Monthly Cost Budget 20 Dollars
+
 ![image](https://user-images.githubusercontent.com/32872009/219864623-ad23d2db-cdea-4eb9-9bed-d395ef1ae66e.png)
 
 
