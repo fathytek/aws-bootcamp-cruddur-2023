@@ -22,7 +22,10 @@ First I installed AWS CLI on my laptop ( Windows OS based) by following the guid
 
 
 2-  Create Admin User
+
+
  in this section, I create a group with IAM with admin right. I rename this group as admin
+ 
  ![image](https://user-images.githubusercontent.com/32872009/219869390-5d326273-63c9-4eae-a976-0d07d32d9e3c.png)
  
  I give the permission : AdministratorAcces
