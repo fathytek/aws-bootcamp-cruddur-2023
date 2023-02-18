@@ -22,6 +22,21 @@ First I installed AWS CLI on my laptop ( Windows OS based) by following the guid
 
 
 2-  Create Admin User
+ in this section, I create a group with IAM with admin right. I rename this group as admin
+ ![image](https://user-images.githubusercontent.com/32872009/219869390-5d326273-63c9-4eae-a976-0d07d32d9e3c.png)
+ 
+ I give the permission : AdministratorAcces
+ 
+ Once done, In the Users panel, I create the user AWS-BOOT-CAMP user and 
+ 
+ ![image](https://user-images.githubusercontent.com/32872009/219869535-3e24d937-78c4-48ed-acf1-8caa01bab607.png)
+
+I assigned to the group admin 
+
+![image](https://user-images.githubusercontent.com/32872009/219869547-078a0eb8-aa24-4569-a1b5-41e4ebcaa0ab.png)
+
+Once the user was created, I enabled the access to the console and I activate the MFA feature.
+
 
 3 - Generate AWS Credentials
 
