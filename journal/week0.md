@@ -56,9 +56,24 @@ With my user freshly created I connected to the console. I select the IAM servic
 
 ![image](https://user-images.githubusercontent.com/32872009/219870773-c11b80bc-5f38-408b-a519-6fc3c9bb7604.png)
 
+
 I the tab, I select Security credentials I click on the button Create access key in the Access Key section
 
 ![image](https://user-images.githubusercontent.com/32872009/219870851-be7a2265-13a5-4d6e-94b1-f996d8a9a03b.png)
+
+
+once create we need to set the differents variable for the dedicated environments ( Current Terminal & Gitpod)
+```
+export AWS_ACCESS_KEY_ID=""
+export AWS_SECRET_ACCESS_KEY=""
+export AWS_DEFAULT_REGION=us-east-1
+```
+For Gitpod enn you need to launch these commands
+```
+gp env AWS_ACCESS_KEY_ID=""
+gp env AWS_SECRET_ACCESS_KEY=""
+gp env AWS_DEFAULT_REGION=us-east-1
+```
 
 
 4 - CloudShell
