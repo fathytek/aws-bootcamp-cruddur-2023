@@ -87,8 +87,29 @@ very easy part.
 
 5 - Billing Alarm
 
-in this part I follow the video published by Andrew and I used the aws cli to create my alert
+for this section, we will use the AWS Cli to create the alarm as shown in Andrew Video. as prerequisite for the alarm, we need a sns topic first and after we can build the alarm.
 
+  Create SNS Topic
+  
+  I will create the SNS topic using the following command
+```
+aws sns create-topic --name my-first-alarm
+```
+once the TopicArn is returned, you can create a subscription using it with your email
+```
+aws sns subscribe \
+    --topic-arn TopicARN \
+    --protocol email \
+    --notification-endpoint your@email.com
+```
+  chekc you email box for the confirmation
+  
+  Create Alarm
+  
+ you can use the create alarm via AWS CLI
+ ```
+ aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.json
+```
 6 - Budgets
 
 I logged as root in my account and I create as suggested by Andrew 2 alarms. the first one with zero spend budget and the second for 10 dollars monthly cost budget.
