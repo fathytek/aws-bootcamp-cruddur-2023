@@ -140,7 +140,20 @@ https://lucid.app/lucidchart/cd3eb922-36c2-400c-a81f-0dee949c466d/edit?beaconFlo
 ![image](https://user-images.githubusercontent.com/32872009/219875589-d49f25ba-ef2a-45d5-98e9-39f864632d92.png)
 
 
-i Will create the AWS Diagram soon
+8 - Lucid Logical Diagram
+
+Here the Logical Diagram of Cruddur which represents :
+. Application using micro services
+. The frontend is in JS and the backend is in Python
+. Using api to communicate
+. Authentication using Cognito
+. Momento as a third party caching system
+
+![image](https://user-images.githubusercontent.com/32872009/220203387-e37bdb70-02ab-41ce-bcf9-dff8531a3229.png)
+
+
+https://lucid.app/lucidchart/invitations/accept/inv_c760eee5-7bf3-4cda-94ed-2640b3302434
+
 
 
 
