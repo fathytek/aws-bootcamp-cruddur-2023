@@ -143,6 +143,7 @@ https://lucid.app/lucidchart/cd3eb922-36c2-400c-a81f-0dee949c466d/edit?beaconFlo
 8 - Lucid Logical Diagram
 
 Here the Logical Diagram of Cruddur which represents :
+
 . Application using micro services
 . The frontend is in JS and the backend is in Python
 . Using api to communicate
