@@ -144,11 +144,11 @@ https://lucid.app/lucidchart/cd3eb922-36c2-400c-a81f-0dee949c466d/edit?beaconFlo
 
 Here the Logical Diagram of Cruddur which represents :
 
-. Application using micro services
-. The frontend is in JS and the backend is in Python
-. Using api to communicate
-. Authentication using Cognito
-. Momento as a third party caching system
+- Application using micro services
+- The frontend is in JS and the backend is in Python
+- Using api to communicate
+- Authentication using Cognito
+- Momento as a third party caching system
 
 ![image](https://user-images.githubusercontent.com/32872009/220203387-e37bdb70-02ab-41ce-bcf9-dff8531a3229.png)
 
