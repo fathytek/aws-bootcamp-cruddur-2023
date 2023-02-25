@@ -114,7 +114,16 @@ curl -X GET http://localhost:4567/api/activities/home -H "Accept: application/js
 ```
 
 
+## Containerize Frontend
 
+## Run NPM Install
+
+Befor building our frontend container we have to install npm so please follow these instructions :
+
+```
+cd frontend-react-js
+npm i
+```
 
 
 
