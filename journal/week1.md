@@ -75,6 +75,18 @@ to fix this problem we need to run our container as follow:
 docker run --rm -p 4567:4567 -it -e FRONTEND_URL='*' -e BACKEND_URL='*' backend-flask
 
 ```
+### Get  Running Container Ids and Images
+
+you can run  docker ps to get the running containers in you terminal
+
+to check the docker images present in your docker host use docker images
+
+
+```
+docker ps
+docker images
+```
+
 
 
 
