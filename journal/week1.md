@@ -66,7 +66,14 @@ FRONTEND_URL="*" BACKEND_URL="*" docker run --rm -p 4567:4567 -it backend-flask
 ```
 These two commands will not run the containers correctly, you can check the environment variables by clicking on the backend-flask container and select Attach Shell, It will run the following command in the terminal
 ```sh
-docker exec -it 4c524ee49f4fdc2b3df3978fcd4ef3bad7309f5b9eca2510b7533b637697ce74 bash
+docker exec -it 4c524ee49f4fdc2b3df3978fcd4ef3bad7309f5b9eca2510b7533b637697ce74 bash 
+
+```
+to fix this problem we need to run our container as follow:
+
+```sh
+docker run --rm -p 4567:4567 -it -e FRONTEND_URL='*' -e BACKEND_URL='*' backend-flask
+
 ```
 
 
