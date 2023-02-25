@@ -86,6 +86,34 @@ to check the docker images present in your docker host use docker images
 docker ps
 docker images
 ```
+you can run also 
+
+```
+docker ps -a 
+```
+
+
+
+### Running docker in background
+
+Run in background
+```sh
+docker container run --rm -p 4567:4567 -d backend-flask
+```
+
+Return the container id into an Env Vat
+```sh
+CONTAINER_ID=$(docker run --rm -p 4567:4567 -d backend-flask)
+```
+To test your server, you can use the curl command
+
+### Send Curl to Test Server
+
+```
+curl -X GET http://localhost:4567/api/activities/home -H "Accept: application/json" -H "Content-Type: application/json"
+```
+
+
 
 
 
