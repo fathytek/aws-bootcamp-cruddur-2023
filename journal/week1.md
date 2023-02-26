@@ -234,8 +234,97 @@ networks:
     driver: bridge
     name: cruddur
 ```
+## Adding DynamoDB Local and Postgres
 
+We need to integrate the  Postgres and DynamoDb into our existing docker compose filenas follow:
 
+### Postgres
 
+```yaml
+services:
+  db:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local
+```
 
+To install the postgres client into Gitpod
 
+```sh
+  - name: postgres
+    init: |
+      curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
+      echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+      sudo apt update
+      sudo apt install -y postgresql-client-13 libpq-dev
+```
+
+### DynamoDB Local
+
+```yaml
+services:
+  dynamodb-local:
+    # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
+    # We needed to add user:root to get this working.
+    user: root
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+```
+
+### Challenge Dynamodb Local
+
+The following section is taken from Andrew repo 
+
+Dynamodb Local emulates a Dynamodb database in your local envirmoment for rapid developement and table design interation
+
+## Create a table
+
+```
+aws dynamodb create-table \
+    --endpoint-url http://localhost:8000 \
+    --table-name Music \
+    --attribute-definitions \
+        AttributeName=Artist,AttributeType=S \
+        AttributeName=SongTitle,AttributeType=S \
+    --key-schema AttributeName=Artist,KeyType=HASH AttributeName=SongTitle,KeyType=RANGE \
+    --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
+    --table-class STANDARD
+```
+## Create an Item
+
+```
+aws dynamodb put-item \
+    --endpoint-url http://localhost:8000 \
+    --table-name Music \
+    --item \
+        '{"Artist": {"S": "No One You Know"}, "SongTitle": {"S": "Call Me Today"}, "AlbumTitle": {"S": "Somewhat Famous"}}' \
+    --return-consumed-capacity TOTAL  
+```
+## List Tables
+
+```
+aws dynamodb list-tables --endpoint-url http://localhost:8000
+```
+## Get Records
+
+```
+aws dynamodb scan --table-name cruddur_cruds --query "Items" --endpoint-url http://localhost:8000
+```
+
+Please refer to 
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.CLI.html
