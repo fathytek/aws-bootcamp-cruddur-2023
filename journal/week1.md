@@ -1,5 +1,51 @@
 # Week 1 — App Containerization
 
+### **Docker Components**
+![Docker Component](https://docs.docker.com/engine/images/architecture.svg)
+
+- Client is basically is installed your docker locally (build, pull, run features)
+- Server is the location where is running the container
+
+Registry is a location of the images available on internet (an exampple is docker hub). you could have a private registry inside of your organisation.
+
+#### **Security Best Practice**
+- Keep Host & Docker Updated to latest security patches.
+- Docker Deamon & containers should run in non root user mode
+- Image Vulnerability Scanning
+- Trust a Private vs Public Image Registry
+- No Sensitive Data in Docker Files or Images
+- Use Secret Management Services to share secrets.
+- Read only file system and volume for dockers
+- Separate databases for long term storage
+- Use DevSecOps pratices while building application security
+- Ensure all code is tested for vulnerabilities before production use
+
+
+#### **Docker Compose** 
+It is a tool for defining and running multi container Docker Applications (It uses yml file).
+
+### Tool to indefity vulnerability on your Docker Compose
+Snyk OpenSource Security
+
+### Tools to Store and Manage Secrets
+- Aws Secret Manager
+- Hashicorp Vault
+
+### Tools to scan Image Vulnerability
+- AWS Inspector
+- Clair
+- Snyk COntainer Security
+
+### Running Containers in AWS
+Problem with docker compose and Docker Containers: If you need to change, you need to stop the machine update the file and restart.
+
+For the Managed Containers you can use the following AWS service
+- AWS ECS
+- AWS EKS
+- AWS Fargate
+
+### Cruddur Task
+
 To Run the containerize backend 
 
 ### Run Python
