@@ -327,4 +327,25 @@ aws dynamodb scan --table-name cruddur_cruds --query "Items" --endpoint-url http
 ```
 
 Please refer to 
-https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.CLI.html
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.CLI.html
+
+## Volumes
+
+directory volume mapping
+
+```
+volumes: 
+- "./docker/dynamodb:/home/dynamodblocal/data"
+```
+
+```
+volumes: 
+  - db:/var/lib/postgresql/data
+
+volumes:
+  db:
+    driver: local
+```
+
+
