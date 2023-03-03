@@ -57,3 +57,30 @@ OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
 OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
 OTEL_SERVICE_NAME: "${HONEYCOMB_SERVICE_NAME}"
 ```
+
+## AWS X-RAY
+
+### Instrument AWS X-Ray for Flask
+
+I designate the region closed to me 
+
+```sh
+export AWS_REGION="eu-west-3"
+gp env AWS_REGION="eu-west-3"
+```
+
+### Installation of aws-xray-sdk
+
+for this step we need to install the aws-xray-sdk , so we should to add it in our requirements.txt of backend-flask repo as follow
+
+```py
+aws-xray-sdk
+```
+
+Install the needed dependencies under backend-flask
+
+```sh
+pip install -r requirements.txt
+```
+
+
