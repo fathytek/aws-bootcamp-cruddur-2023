@@ -112,4 +112,87 @@ Install the needed dependencies under backend-flask
 pip install -r requirements.txt
 ```
 
+Instrument app.py with the needed instructions in backend-flask repo
+
+Add to `app.py`
+
+```py
+from aws_xray_sdk.core import xray_recorder
+from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+
+xray_url = os.getenv("AWS_XRAY_URL")
+xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
+XRayMiddleware(app, xray_recorder)
+```
+
+
+#### Add AWS XRay Resouce file
+
+Add `aws/json/xray.json`
+
+```json
+{
+  "SamplingRule": {
+      "RuleName": "Cruddur",
+      "ResourceARN": "*",
+      "Priority": 9000,
+      "FixedRate": 0.1,
+      "ReservoirSize": 5,
+      "ServiceName": "backend-flask",
+      "ServiceType": "*",
+      "Host": "*",
+      "HTTPMethod": "*",
+      "URLPath": "*",
+      "Version": 1
+  }
+}
+```
+### AWS CLI commands for AWS X-RAY
+
+```sh
+export FLASK_ADDRESS="https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+aws xray create-group \
+   --group-name "Cruddur" \
+   --filter-expression "service(\"$FLASK_ADDRESS\") {fault OR error}"
+```
+
+```sh
+aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
+```
+### More documentation for AWS X-RAY
+
+[Install X-ray Daemon](https://docs.aws.amazon.com/xray/latest/devguide/xray-daemon.html)
+
+[Github aws-xray-daemon](https://github.com/aws/aws-xray-daemon)
+
+```sh
+ wget https://s3.us-east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/aws-xray-daemon-3.x.deb
+ sudo dpkg -i **.deb
+ ```
+
+### Update docker-compose.yml file
+
+We need to add the following variables
+
+```yml
+      AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
+      AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
+```
+
+and insert the xray deamon too
+
+```yml
+  xray-daemon:
+    image: "amazon/aws-xray-daemon"
+    environment:
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      AWS_REGION: "eu-west-3"
+    command:
+      - "xray -o -b xray-daemon:2000"
+    ports:
+      - 2000:2000/udp
+```
+[X-Ray Docker Compose example](https://github.com/marjamis/xray/blob/master/docker-compose.yml)
+
 
