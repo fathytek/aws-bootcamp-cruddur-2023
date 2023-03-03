@@ -18,15 +18,16 @@ for the availability, monitoring show you if the system is available where obser
 For the performance, monitoring show you if the system is healthy or not, where observability illustrates what the system is doing
 Fault Management and Recovery are importants keys, monitoring helps you to know  when and where the issue did occur and if the system is backup, meanwhile observality give the reason why it occur and what you can do to prevent the issue from reoccuring
 
+### Observability in AWS 
 
 Observability is based on three pillars : Logs, Metrcis & Tracing
 
-### Observability in AWS 
+![image](https://user-images.githubusercontent.com/32872009/222726404-7ba809ec-8d32-4480-8a78-a74736d618dd.png)
 
-image.png
+All the solutions provided by AWS for the observalibility: you can choose the needed tool to accomplish your objective
 
+![image](https://user-images.githubusercontent.com/32872009/222726976-8edc6de0-484b-429b-96d4-751e05baa32b.png)
 
-image.png
 
 ## HoneyComb
 
