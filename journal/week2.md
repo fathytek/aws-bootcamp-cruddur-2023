@@ -1,5 +1,33 @@
 # Week 2 — Distributed Tracing
 
+## Observability
+
+- Decreased Alert Fatigue for Security Operation Teams
+- Visibility of end2end of Logs, metrics & tracing
+- Troubleshoot and resolve things quickly without costing too much money
+- Understand application health
+- Accelerate collaboration between teams
+- Reduce overall operational cost
+- Increase customer satisfaction
+
+### Difference between Monitoring and Observability
+
+There are many differentiating factors between monitoring and Observability
+Let's take a look to some of them
+for the availability, monitoring show you if the system is available where observability give you how long is up
+For the performance, monitoring show you if the system is healthy or not, where observability illustrates what the system is doing
+Fault Management and Recovery are importants keys, monitoring helps you to know  when and where the issue did occur and if the system is backup, meanwhile observality give the reason why it occur and what you can do to prevent the issue from reoccuring
+
+
+Observability is based on three pillars : Logs, Metrcis & Tracing
+
+### Observability in AWS 
+
+image.png
+
+
+image.png
+
 ## HoneyComb
 
 1. Install Packages
