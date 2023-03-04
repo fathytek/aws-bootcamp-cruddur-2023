@@ -258,13 +258,75 @@ def init_rollbar():
 
 ## Simple flask app
 
-@app.route('/')
-def hello():
-    print "in hello"
-    x = None
-    x[5]
+@app.route('/rollbar/test')
+def rollbar_test():
+    rollbar.report_message('Hello World!', 'warning')
     return "Hello World!"
 
 ```
+
+
+## CloudWatch Logs
+
+All the instructions you can find it this link
+https://pypi.org/project/watchtower/
+
+
+Add to the `requirements.txt`
+
+```
+watchtower
+```
+
+Install watchtower in your environment 
+
+```sh
+pip install -r requirements.txt
+```
+
+
+Some modification should be introduced in  `app.py`
+
+```
+import watchtower
+import logging
+from time import strftime
+```
+
+
+```py
+# Configuring Logger to Use CloudWatch
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+LOGGER.addHandler(console_handler)
+LOGGER.addHandler(cw_handler)
+LOGGER.info("some message")
+```
+
+```py
+@app.after_request
+def after_request(response):
+    timestamp = strftime('[%Y-%b-%d %H:%M]')
+    LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
+    return response
+```
+
+to see logs coming from this  API endpoint, you need to add the following
+
+```py
+LOGGER.info('Hello Cloudwatch! from  /api/activities/home')
+```
+
+Set the environment  variable in your backend-flask for `docker-compose.yml`
+
+```yml
+      AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+```
+
+
 
 

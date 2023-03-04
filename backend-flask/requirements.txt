@@ -10,3 +10,5 @@ aws-xray-sdk
 
 blinker
 rollbar
+
+watchtower
