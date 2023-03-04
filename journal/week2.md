@@ -195,4 +195,76 @@ and insert the xray deamon too
 ```
 [X-Ray Docker Compose example](https://github.com/marjamis/xray/blob/master/docker-compose.yml)
 
+## Rollbar
+
+https://rollbar.com/
+
+Create a new project in Rollbar called `Cruddur`
+
+Add to `requirements.txt`
+
+
+```
+blinker
+rollbar
+```
+
+Install dependencies
+
+```sh
+pip install -r requirements.txt
+```
+
+from your the onboard page retrieve the value of your token and set it below
+
+
+```sh
+export ROLLBAR_ACCESS_TOKEN=""
+gp env ROLLBAR_ACCESS_TOKEN=""
+```
+
+Add to backend-flask for `docker-compose.yml`
+
+```yml
+ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
+```
+
+```py
+
+## Rollbar init code. You'll need the following to use Rollbar with Flask.
+## This requires the 'blinker' package to be installed
+
+import os
+import rollbar
+import rollbar.contrib.flask
+from flask import got_request_exception
+
+rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+@app.before_first_request
+def init_rollbar():
+    """init rollbar module"""
+    rollbar.init(
+        # access token
+        rollbar_access_token,
+        # environment name
+        'production',
+        # server root directory, makes tracebacks prettier
+        root=os.path.dirname(os.path.realpath(__file__)),
+        # flask already sets up logging
+        allow_logging_basic_config=False)
+
+    # send exceptions from `app` to rollbar, using flask's signal system.
+    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+
+## Simple flask app
+
+@app.route('/')
+def hello():
+    print "in hello"
+    x = None
+    x[5]
+    return "Hello World!"
+
+```
+
 
