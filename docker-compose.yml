@@ -13,8 +13,8 @@ services:
       AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
       ROLLBAR_ACCESS_TOKEN: "e2d239fc274f45459fb6217fd5f9e46f"
-      AWS_COGNITO_USER_POOL_ID: "eu-west-3_YzIrmrmgj"
-      AWS_COGNITO_USER_POOL_CLIENT_ID: "6jo2al76f8q41niqtdfct5nf1g"
+      AWS_COGNITO_USER_POOL_ID: "eu-west-3_GZk4vNklT"
+      AWS_COGNITO_USER_POOL_CLIENT_ID: "52286dq7p1l6celb9uvg4iac1r"
     build: ./backend-flask
     ports:
       - "4567:4567"
@@ -26,8 +26,8 @@ services:
       REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       REACT_APP_AWS_PROJECT_REGION: "${AWS_DEFAULT_REGION}"
       REACT_APP_AWS_COGNITO_REGION: "${AWS_DEFAULT_REGION}"
-      REACT_APP_AWS_USER_POOLS_ID: "eu-west-3_YzIrmrmgj"
-      REACT_APP_CLIENT_ID: "6jo2al76f8q41niqtdfct5nf1g"
+      REACT_APP_AWS_USER_POOLS_ID: "eu-west-3_GZk4vNklT"
+      REACT_APP_CLIENT_ID: "52286dq7p1l6celb9uvg4iac1r"
     build: ./frontend-react-js
     ports:
       - "3000:3000"
