@@ -148,3 +148,113 @@ WHERE
   message_groups.uuid = {{message_group_uuid}}
   AND message_groups.user_uuid = {{user_uuid}}
 ```
+
+### DynamoDB Stream trigger to update message groups
+
+- create a VPC endpoint for dynamoDB service on your VPC
+- create a Python lambda function in your vpc
+- enable streams on the table with 'new image' attributes included
+- add your function as a trigger on the stream
+- grant the lambda IAM role permission to read the DynamoDB stream events
+
+`AWSLambdaInvocation-DynamoDB`
+
+- grant the lambda IAM role permission to update table items
+
+
+**The Function**
+
+```.py
+import json
+import boto3
+from boto3.dynamodb.conditions import Key, Attr
+
+dynamodb = boto3.resource(
+ 'dynamodb',
+ region_name='ca-central-1',
+ endpoint_url="http://dynamodb.ca-central-1.amazonaws.com"
+)
+
+def lambda_handler(event, context):
+  pk = event['Records'][0]['dynamodb']['Keys']['pk']['S']
+  sk = event['Records'][0]['dynamodb']['Keys']['sk']['S']
+  if pk.startswith('MSG#'):
+    group_uuid = pk.replace("MSG#","")
+    message = event['Records'][0]['dynamodb']['NewImage']['message']['S']
+    print("GRUP ===>",group_uuid,message)
+    
+    table_name = 'cruddur-messages'
+    index_name = 'message-group-sk-index'
+    table = dynamodb.Table(table_name)
+    data = table.query(
+      IndexName=index_name,
+      KeyConditionExpression=Key('message_group_uuid').eq(group_uuid)
+    )
+    print("RESP ===>",data['Items'])
+    
+    # recreate the message group rows with new SK value
+    for i in data['Items']:
+      delete_item = table.delete_item(Key={'pk': i['pk'], 'sk': i['sk']})
+      print("DELETE ===>",delete_item)
+      
+      response = table.put_item(
+        Item={
+          'pk': i['pk'],
+          'sk': sk,
+          'message_group_uuid':i['message_group_uuid'],
+          'message':message,
+          'user_display_name': i['user_display_name'],
+          'user_handle': i['user_handle'],
+          'user_uuid': i['user_uuid']
+        }
+      )
+      print("CREATE ===>",response)
+```
+for momento I didn't anythin
+
+## Serverless Caching
+
+### Install Momento CLI tool
+
+In your gitpod.yml file add:
+
+```yml
+  - name: momento
+    before: |
+      brew tap momentohq/tap
+      brew install momento-cli
+```
+
+### Login to Momento
+
+There is no `login` you just have to generate an access token and not lose it. 
+ 
+You cannot rotate out your access token on an existing cache.
+
+If you lost your cache or your cache was comprised you just have to wait for the TTL to expire.
+
+> It might be possible to rotate out the key by specifcing the same cache name and email.
+
+ ```sh
+ momento account signup aws --email andrew@exampro.co --region us-east-1
+ ```
+
+### Create Cache
+
+```sh
+export MOMENTO_AUTH_TOKEN=""
+export MOMENTO_TTL_SECONDS="600"
+export MOMENTO_CACHE_NAME="cruddur"
+gp env MOMENTO_AUTH_TOKEN=""
+gp env MOMENTO_TTL_SECONDS="600"
+gp env MOMENTO_CACHE_NAME="cruddur"
+```
+
+> you might need to do `momento configure` since it might not pick up the env var in the CLI.
+
+Create the cache:
+
+```sh
+momento cache create --name cruddur
+```
+
