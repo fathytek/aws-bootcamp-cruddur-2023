@@ -5,3 +5,4 @@ psycopg2-layer/python/psycopg2/__pycache__/extras.cpython-38.pyc
 psycopg2-layer/python/psycopg2-2.9.5.dist-info/REQUESTED
 psycopg2-layer/python/psycopg2-2.9.5.dist-info/top_level.txt
 psycopg2-layer/*
+frontend-react-js/build/*
