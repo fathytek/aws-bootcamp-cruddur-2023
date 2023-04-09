@@ -4,20 +4,27 @@
   "desiredCount": 1,
   "enableECSManagedTags": true,
   "enableExecuteCommand": true,
+  "loadBalancers": [
+    {
+        "targetGroupArn": "arn:aws:elasticloadbalancing:eu-west-3:039441908572:targetgroup/cruddur-frontend-react-js/bf2c1cbe25b9bd2b",
+        "containerName": "frontend-react-js",
+        "containerPort": 3000
+    }
+  ],
   "networkConfiguration": {
     "awsvpcConfiguration": {
       "assignPublicIp": "ENABLED",
       "securityGroups": [
-        "sg-04bdc8d5443cc8283"
+        "sg-08b330d599cb8d339"
       ],
       "subnets": [
-        "subnet-0462b87709683ccaa",
-        "subnet-066a53dd88d557e05",
-        "subnet-021a6adafb79249e3"
+        "subnet-216e356c",
+        "subnet-8735caef",
+        "subnet-07eef87c"
       ]
     }
   },
-  "propagateTags": "SERVICE",
+"propagateTags": "SERVICE",
   "serviceName": "frontend-react-js",
   "taskDefinition": "frontend-react-js",
   "serviceConnectConfiguration": {
