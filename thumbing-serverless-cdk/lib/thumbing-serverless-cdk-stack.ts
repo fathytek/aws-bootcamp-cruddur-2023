@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as s3n from 'aws-cdk-lib/aws-s3-notifications';
 import { Construct } from 'constructs';
 import * as dotenv from 'dotenv';
 
@@ -15,19 +16,35 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     const functionPath: string = process.env.THUMBING_FUNCTION_PATH as string;
     const folderInput: string = process.env.THUMBING_S3_FOLDER_INPUT as string;
     const folderOutput: string = process.env.THUMBING_S3_FOLDER_OUTPUT as string;
+    console.log('bucketName',bucketName)
+    console.log('folderInput',folderInput)
+    console.log('folderOutput',folderOutput)
+    console.log('functionPath',functionPath)
 
-    const bucket = this.createBucket(bucketName);
+
+    //const bucket = this.createBucket(bucketName);
+    const bucket = this.importBucket(bucketName);
     const lambda = this.createLambda(functionPath, bucketName, folderInput, folderOutput);
+
+    // add our s3 event notifications
+    this.createS3NotifyToLambda(folderInput,lambda,bucket)
+    
 
   }
 
   createBucket(bucketName: string): s3.IBucket {
-    const bucket = new s3.Bucket(this, 'ThumbingBucket', {
+    const bucket = new s3.Bucket(this, 'AssetsBucket', {
       bucketName: bucketName,
       removalPolicy: cdk.RemovalPolicy.DESTROY
     });
     return bucket;
   }
+
+  importBucket(bucketName: string): s3.IBucket {
+    const bucket = s3.Bucket.fromBucketName(this,"AssetsBucket",bucketName);
+    return bucket;
+  }
+
 
   createLambda(functionPath: string, bucketName: string, folderInput: string, folderOutput: string): lambda.IFunction {
     const lambdaFunction = new lambda.Function(this, 'ThumbLambda', {
@@ -44,5 +61,15 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     });
     return lambdaFunction;
   } 
+
+  createS3NotifyToLambda(prefix: string, lambda: lambda.IFunction, bucket: s3.IBucket): void {
+    const destination = new s3n.LambdaDestination(lambda);
+    bucket.addEventNotification(
+      s3.EventType.OBJECT_CREATED_PUT,
+      destination,
+      {prefix: prefix} // folder to contain the original images
+    )
+  }
+
 
 }
