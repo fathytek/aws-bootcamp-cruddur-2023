@@ -107,22 +107,22 @@ cors = CORS(
 #    return response
 
 ## Add Rollbar Section 
-rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
-@app.before_first_request
-def init_rollbar():
-    """init rollbar module"""
-    rollbar.init(
-        # access token
-        rollbar_access_token,
-        # environment name
-        'production',
+#rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+#@app.before_first_request
+#def init_rollbar():
+#    """init rollbar module"""
+#    rollbar.init(
+#        # access token
+#        rollbar_access_token,
+#       # environment name
+#        'production',
         # server root directory, makes tracebacks prettier
-        root=os.path.dirname(os.path.realpath(__file__)),
+#        root=os.path.dirname(os.path.realpath(__file__)),
         # flask already sets up logging
-        allow_logging_basic_config=False)
+#        allow_logging_basic_config=False)
 
     # send exceptions from `app` to rollbar, using flask's signal system.
-    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+#    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
 
 ## Simple flask app
 
@@ -136,6 +136,7 @@ def health_check():
 #    return "Hello World!"
 
 @app.route("/api/message_groups", methods=['GET'])
+@cross_origin()
 def data_message_groups():
   access_token = extract_access_token(request.headers)
   try:
@@ -156,6 +157,7 @@ def data_message_groups():
 
 
 @app.route("/api/messages/<string:message_group_uuid>", methods=['GET'])
+@cross_origin()
 def data_messages(message_group_uuid):
   access_token = extract_access_token(request.headers)
   try:
@@ -218,6 +220,7 @@ def data_create_message():
 
 
 @app.route("/api/activities/home", methods=['GET'])
+@cross_origin()
 #@xray_recorder.capture('activities_home')
 def data_home():
   access_token = extract_access_token(request.headers)
@@ -236,12 +239,14 @@ def data_home():
   return data, 200
 
 @app.route("/api/activities/notifications", methods=['GET'])
+@cross_origin()
 def data_notifications():
   data = NotificationsActivities.run()
   return data, 200
 
 @app.route("/api/activities/@<string:handle>", methods=['GET'])
 #@xray_recorder.capture('activities_users')
+@cross_origin()
 def data_handle(handle):
   model = UserActivities.run(handle)
   if model['errors'] is not None:
@@ -250,6 +255,7 @@ def data_handle(handle):
     return model['data'], 200
 
 @app.route("/api/activities/search", methods=['GET'])
+@cross_origin()
 def data_search():
   term = request.args.get('term')
   model = SearchActivities.run(term)
@@ -262,7 +268,7 @@ def data_search():
 @app.route("/api/activities", methods=['POST','OPTIONS'])
 @cross_origin()
 def data_activities():
-  user_handle  = request.json["user_handle"]
+  user_handle = request.json["user_handle"]
   message = request.json['message']
   ttl = request.json['ttl']
   model = CreateActivity.run(message, user_handle, ttl)
@@ -291,6 +297,7 @@ def data_activities_reply(activity_uuid):
   return
 
 @app.route("/api/users/@<string:handle>/short", methods=['GET'])
+@cross_origin()
 def data_users_short(handle):
   data = UsersShort.run(handle)
   return data, 200
