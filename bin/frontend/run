@@ -9,5 +9,5 @@ ENVFILE_PATH="$PROJECT_PATH/frontend-react-js.env"
 docker run --rm \
   --env-file $ENVFILE_PATH \
   --network cruddur-net \
-  --publish 3000:3000 \
+  --publish 4567:4567 \
   -it frontend-react-js-prod

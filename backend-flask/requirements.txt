@@ -1,5 +1,6 @@
 flask
 flask-cors
+
 opentelemetry-api 
 opentelemetry-sdk 
 opentelemetry-exporter-otlp-proto-http 
@@ -8,10 +9,10 @@ opentelemetry-instrumentation-requests
 
 aws-xray-sdk
 
+watchtower
+
 blinker
 rollbar
-
-watchtower
 
 Flask-AWSCognito
 
