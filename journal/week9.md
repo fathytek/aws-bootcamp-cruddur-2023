@@ -13,10 +13,14 @@ What AWS services can help to achieve CI/CD
 - CodeDeploy
 - CodePipeline - CI/CD flow Orchestrator
 
+![image](https://user-images.githubusercontent.com/32872009/235112693-db0a8a76-2312-4791-92fc-46e37a569d0e.png)
 
 you can use others Code Repo like GITLab, GITHub, BitBucket
 
 **Simple CI/CD Pipeline Architecture**
+
+![image](https://user-images.githubusercontent.com/32872009/235112557-973a8e59-6078-41f8-96f2-f8ff7f1c41d3.png)
+
 
 **OWASP Top 10 CI/CD**
 here the top ten CI/CD Security Risks
