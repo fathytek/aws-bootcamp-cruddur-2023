@@ -27,5 +27,5 @@ env:
     AWS_ACCOUNT_ID: 39441908572
     AWS_DEFAULT_REGION: eu-west-3
     CONTAINER_NAME: backend-flask
-    IMAGE_URL: 39441908572.dkr.ecr.eu-west-3.amazonaws.com
+    IMAGE_URL: 039441908572.dkr.ecr.eu-west-3.amazonaws.com
     REPO_NAME: backend-flask:latest
