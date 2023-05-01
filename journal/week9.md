@@ -83,4 +83,16 @@ Create a pipeline:
 - select the cruddur repo and select branch `prod`, select "start the pipeline on source code change" and default output artifact format
 - for build stage, select AWS CodeBuild as build provider, select your region, select the newly created project `cruddur-backend-flask-bake-image`
 - for deploy stage, select ECS as deploy provide, choose `cruddur` cluster, `backend-flask` service
-  
+
+
+
+## Test Pipeline
+
+Update `backend-flask/app.py` by changing the return in `health_check` function from `return {"success": True}, 200` to `return {"success": True, "ver": 1}, 200`.
+
+Now trigger the pipeline that we created.
+
+Go to `https://api.<domain_name>/api/health-check`, it will show `{"success":true,"ver":1}`.
+
+
+![image](https://user-images.githubusercontent.com/32872009/235427551-85c05b0b-15d1-4165-a686-7838920c2e5e.png)
