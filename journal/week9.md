@@ -73,3 +73,14 @@ Then click "Start build" (or triggered by a merge to the `prod` branch). If succ
 ![image](https://user-images.githubusercontent.com/32872009/235320396-0b3b17a4-b265-4684-80b3-56437a0ea5a0.png)
 
 ![image](https://user-images.githubusercontent.com/32872009/235320359-aefb16ba-9c9d-4bbb-b0de-f321fe26f68f.png)
+
+## AWS CodePipeline
+
+Create a pipeline:
+
+- name as `cruddur-backend-fargate`, allow to create a new service role automatically named as `AWSCodePipelineServiceRole-us-east-1-cruddur-backend-fargate`, select default location and default managed key in advanced settings
+- source stage from GitHub (Version 2), click "Connect to GitHub", set connection name as `cruddur`, install a new app, select the cruddur repo, in the end finish "Connect to GitHub" and back to the pipeline page
+- select the cruddur repo and select branch `prod`, select "start the pipeline on source code change" and default output artifact format
+- for build stage, select AWS CodeBuild as build provider, select your region, select the newly created project `cruddur-backend-flask-bake-image`
+- for deploy stage, select ECS as deploy provide, choose `cruddur` cluster, `backend-flask` service
+  
