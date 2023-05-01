@@ -52,3 +52,47 @@ here the top ten CI/CD Security Risks
 - Enable Encryption in Transit using TLS/SSL certification eg HTTPS
 - Only use Trusted Source Control for sending changes to CI/CD pipeline
 - Develop Process for continuously verifiying if there is a change that may compromise the know state of a CI/CD pipeline
+
+## AWS CodeBuild
+
+Create a build project:
+
+- name as `cruddur-backend-flask-bake-image`, enable build badge
+- source:
+  - choose source provider as GitHub, repository in my GitHub account, select the `cruddur` repo, set source version to `prod`
+  - select rebuild every time a code change is pushed to this repository, select single build, select event type as `PULL_REQUEST_MERGED`
+- environment:
+  - select managed image, select operating system as Amazon Linux 2, select standard runtime, select the latest image (4.0), select environment type as Linux, tick privileged
+  - create a new service role automatically named as `codebuild-cruddur-backend-flask-bake-image-service-role`
+  - decrease timeout to 20 min, don't select any certificate nor VPC, select compute as 3 GB memory and 2 vCPUs
+- use a buildspec file `backend-flask/buildspec.yml`
+- no artifects
+- select cloudwatch logs, set group name as `/cruddur/build/backend-flask`, stream name as `backend-flask`
+
+Then click "Start build" (or triggered by a merge to the `prod` branch). If succeeded, you can check the build history for details.
+![image](https://user-images.githubusercontent.com/32872009/235320396-0b3b17a4-b265-4684-80b3-56437a0ea5a0.png)
+
+![image](https://user-images.githubusercontent.com/32872009/235320359-aefb16ba-9c9d-4bbb-b0de-f321fe26f68f.png)
+
+## AWS CodePipeline
+
+Create a pipeline:
+
+- name as `cruddur-backend-fargate`, allow to create a new service role automatically named as `AWSCodePipelineServiceRole-us-east-1-cruddur-backend-fargate`, select default location and default managed key in advanced settings
+- source stage from GitHub (Version 2), click "Connect to GitHub", set connection name as `cruddur`, install a new app, select the cruddur repo, in the end finish "Connect to GitHub" and back to the pipeline page
+- select the cruddur repo and select branch `prod`, select "start the pipeline on source code change" and default output artifact format
+- for build stage, select AWS CodeBuild as build provider, select your region, select the newly created project `cruddur-backend-flask-bake-image`
+- for deploy stage, select ECS as deploy provide, choose `cruddur` cluster, `backend-flask` service
+
+
+
+## Test Pipeline
+
+Update `backend-flask/app.py` by changing the return in `health_check` function from `return {"success": True}, 200` to `return {"success": True, "ver": 1}, 200`.
+
+Now trigger the pipeline that we created.
+
+Go to `https://api.<domain_name>/api/health-check`, it will show `{"success":true,"ver":1}`.
+
+
+![image](https://user-images.githubusercontent.com/32872009/235427551-85c05b0b-15d1-4165-a686-7838920c2e5e.png)
