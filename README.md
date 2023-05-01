@@ -1,4 +1,5 @@
 # FREE AWS Cloud Project Bootcamp
+![](https://codebuild.eu-west-3.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiTU9WV2k3Rkc1SjlwSHBhdndlbmttdVh4U3MxTEVQcGNNM2tPUU5LRHVBVllKMFQ2a0I0RVlhWTUwT05vZldUa25XSWZMT0MwWGdFeDhyS3REQTdzeVVZPSIsIml2UGFyYW1ldGVyU3BlYyI6IkZSZnRtemFJdmpOUkpIY2MiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)
 
 FRONTEND_URL="" BACKEND_URL="" docker run --rm -p 4567:4567 -it backend-flask
 
