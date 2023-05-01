@@ -1,9 +1,12 @@
 #! /usr/bin/bash
 set -e # Exit on error
 
-CFN_PATH="/workspaces/aws-bootcamp-cruddur-2023/aws/cfn/template.yaml"
+CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/template.yaml"
 
-//aws cloudformation deploy --template-file ./template.yml --stack-name myteststack --parameter-overrides MyParameterSample=MySampleValue
+echo $CFN_PATH
+
+cfn-lint $CFN_PATH
+
 aws cloudformation deploy \
  --template-file $CFN_PATH \
  --stack-name "my-cluster" \
