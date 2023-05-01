@@ -1,0 +1,7 @@
+//version cloud formation
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+     Setup ECS Cluster
+Resources:
+  ECSCluster:  # Logical name
+    Type: 'AWS::ECS::Cluster'
